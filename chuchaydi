@@ -1,6 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Screen</title>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: monospace;
+        }
+
+        .letter {
+            position: fixed;
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+
 <script>
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-const totalLetters = 150; // số lượng chữ trên màn hình
+const totalLetters = 150;
 
 for (let i = 0; i < totalLetters; i++) {
     createLetter();
@@ -8,14 +33,14 @@ for (let i = 0; i < totalLetters; i++) {
 
 function createLetter() {
     const span = document.createElement("span");
+    span.className = "letter";
     span.textContent = letters[Math.floor(Math.random() * letters.length)];
-    span.style.position = "fixed";
+
     span.style.left = Math.random() * window.innerWidth + "px";
     span.style.top = Math.random() * window.innerHeight + "px";
     span.style.fontSize = (14 + Math.random() * 26) + "px";
     span.style.opacity = Math.random();
     span.style.color = randomColor();
-    span.style.pointerEvents = "none";
 
     document.body.appendChild(span);
 
@@ -24,7 +49,7 @@ function createLetter() {
 
 function animateLetter(el) {
     let y = parseFloat(el.style.top);
-    const speed = 0.3 + Math.random() * 0.7;
+    const speed = 0.5 + Math.random();
 
     function fall() {
         y += speed;
@@ -42,7 +67,10 @@ function animateLetter(el) {
 }
 
 function randomColor() {
-    const colors = ["#ffffff", "#aefcff", "#ffd6ff", "#caffbf", "#ffc6ff"];
+    const colors = ["#00ff88", "#00ffff", "#ffffff", "#aaffff"];
     return colors[Math.floor(Math.random() * colors.length)];
 }
 </script>
+
+</body>
+</html>
