@@ -1,0 +1,48 @@
+<script>
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const totalLetters = 150; // số lượng chữ trên màn hình
+
+for (let i = 0; i < totalLetters; i++) {
+    createLetter();
+}
+
+function createLetter() {
+    const span = document.createElement("span");
+    span.textContent = letters[Math.floor(Math.random() * letters.length)];
+    span.style.position = "fixed";
+    span.style.left = Math.random() * window.innerWidth + "px";
+    span.style.top = Math.random() * window.innerHeight + "px";
+    span.style.fontSize = (14 + Math.random() * 26) + "px";
+    span.style.opacity = Math.random();
+    span.style.color = randomColor();
+    span.style.pointerEvents = "none";
+
+    document.body.appendChild(span);
+
+    animateLetter(span);
+}
+
+function animateLetter(el) {
+    let y = parseFloat(el.style.top);
+    const speed = 0.3 + Math.random() * 0.7;
+
+    function fall() {
+        y += speed;
+
+        if (y > window.innerHeight) {
+            y = -20;
+            el.style.left = Math.random() * window.innerWidth + "px";
+        }
+
+        el.style.top = y + "px";
+        requestAnimationFrame(fall);
+    }
+
+    requestAnimationFrame(fall);
+}
+
+function randomColor() {
+    const colors = ["#ffffff", "#aefcff", "#ffd6ff", "#caffbf", "#ffc6ff"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+</script>
