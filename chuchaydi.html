@@ -1,6 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Letters Avoid Mouse</title>
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: monospace;
+}
+.letter {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+}
+</style>
+</head>
+<body>
+
 <script>
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-const totalLetters = 150;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const totalLetters = 120;
 const mouse = { x: -9999, y: -9999 };
 
 document.addEventListener("mousemove", (e) => {
@@ -23,41 +44,34 @@ function createLetter() {
     let vx = 0;
     let vy = 0;
 
-    const fallSpeed = 0.3 + Math.random() * 0.7;
-    const repelRadius = 120;
+    const fallSpeed = 0.4;
+    const repelRadius = 100;
 
-    el.style.fontSize = (14 + Math.random() * 26) + "px";
-    el.style.color = "#00ffcc";
-    el.style.position = "fixed";
-    el.style.pointerEvents = "none";
+    el.style.color = "#00ff88";
+    el.style.fontSize = "20px";
 
     document.body.appendChild(el);
 
     function animate() {
 
-        // rơi xuống bình thường
-        vy += 0.01;
         y += fallSpeed;
 
-        // tính khoảng cách tới chuột
         const dx = x - mouse.x;
         const dy = y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < repelRadius) {
+        if (dist < repelRadius && dist > 0) {
             const force = (repelRadius - dist) / repelRadius;
-            vx += (dx / dist) * force * 2;
-            vy += (dy / dist) * force * 2;
+            vx += (dx / dist) * force * 3;
+            vy += (dy / dist) * force * 3;
         }
 
-        // ma sát để mượt
         vx *= 0.95;
         vy *= 0.95;
 
         x += vx;
         y += vy;
 
-        // reset khi ra khỏi màn hình
         if (y > window.innerHeight) {
             y = -20;
             x = Math.random() * window.innerWidth;
@@ -71,3 +85,6 @@ function createLetter() {
     animate();
 }
 </script>
+
+</body>
+</html>
